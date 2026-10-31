@@ -5,7 +5,7 @@ Para cambiar una frase, edítala aquí y vuelve a ejecutar:  python tools/build.
 
 # Ajustes del sitio ---------------------------------------------------------
 # URL pública final (sin barra al final). Cámbiala por tu usuario de GitHub.
-SITE_URL = "https://naveaalfredo-cell.github.io"
+SITE_URL = "https://alfredits.github.io"
 # Clave de Web3Forms (web3forms.com). Sin clave, el formulario envía la
 # solicitud por WhatsApp en lugar de por correo.
 WEB3FORMS_KEY = "d2028e0f-f655-42e5-9f42-e72b4b17facd"
