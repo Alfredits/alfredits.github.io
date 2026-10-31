@@ -10,7 +10,7 @@ try {
   p.on?.('Runtime.exceptionThrown', (e) => errs.push(e));
   await p.goto(url, { settleMs: 2000 });
   // instrumentación
-  await p.eval(`(() => { window.__opened = []; window.open = (u) => { window.__opened.push(u); return null; };
+  await p.eval(`(() => { window.__opened = []; window.open = (u) => { window.__opened.push(u); return null; }; window.__sent = []; const rf = window.fetch; window.fetch = (u, o) => { if (String(u).includes('web3forms')) { window.__sent.push(JSON.parse(o.body)); return Promise.resolve(new Response(JSON.stringify({ success: true }), { status: 200 })); } return rf(u, o); };
     window.__errs = []; window.addEventListener('error', e => window.__errs.push(String(e.message))); })()`);
   const assets = await p.eval(`(async () => {
     const urls = new Set();
@@ -52,8 +52,10 @@ try {
   ok(JSON.parse(st2).inval === 1 && JSON.parse(st2).err, 'correo inválido detectado ' + st2);
   await p.eval(`(() => { const f = document.querySelector('[data-form]'); f.elements.email.value = 'cliente@ejemplo.com'; f.elements.email.dispatchEvent(new Event('input', {bubbles:true})); f.querySelector('button[type=submit]').click(); })()`);
   await sleep(500);
-  const op = JSON.parse(await p.eval(`JSON.stringify(window.__opened)`));
-  ok(op.length === 1 && op[0].startsWith('https://wa.me/584245738444?text='), 'envío por WhatsApp: ' + decodeURIComponent(op[0] || '').slice(0, 220).replace(/\n/g, ' | '));
+  const sent = JSON.parse(await p.eval(`JSON.stringify(window.__sent)`)); // simulado: no envía ningún correo
+  const key = await p.eval(`window.ALF.key`);
+  const ok2 = await p.eval(`document.querySelector('.form__status').className`);
+  ok(sent.length === 1 && sent[0].access_key === key && sent[0].email === 'cliente@ejemplo.com' && ok2.includes('is-ok'), 'envío por correo (simulado), datos: ' + Object.keys(sent[0] || {}).join(','));
   const pe = await p.eval(`JSON.stringify(window.__errs)`);
   ok(pe === '[]' && !errs.length, 'sin errores de JavaScript ' + pe);
   const ov = await p.eval(`document.documentElement.scrollWidth - window.innerWidth`);
