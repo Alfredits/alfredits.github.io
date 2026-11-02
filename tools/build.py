@@ -226,7 +226,7 @@ def render(lang):
                         "description": c[lang]["texto"],
                         "thumbnailUrl": f"{C.SITE_URL}/assets/poster/{clip}.jpg",
                         "contentUrl": f"{C.SITE_URL}/assets/video/{clip}.mp4",
-                        "uploadDate": "2026-10-29",
+                        "uploadDate": "2026-10-29T12:00:00-04:00",
                         "creator": {"@id": C.SITE_URL + "/#alfredo"},
                     }
                     for c in C.CATEGORIAS for i, clip in enumerate(videos(c["slug"]), 1)
