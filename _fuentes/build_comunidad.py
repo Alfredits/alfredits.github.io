@@ -410,10 +410,10 @@ GUIA_PASOS = [
     ("codex", "Conecta Codex para ahorrar límite", """
 <p>Opcional, pero es lo que yo hago. Codex es el agente de ChatGPT y <b>sirve tu cuenta de ChatGPT, incluso la gratis</b>. Lo conectas a Claude Code con su plugin oficial y Claude le pasa el código pesado; así gastas menos límite de Claude.</p>
 <p>Los comandos están en la guía <a href="../codex/">CODEX</a>: son 3 y se pegan en 5 minutos.</p>"""),
-    ("pedir", "Graba, pídeselo y termina en CapCut", """
+    ("pedir", "Graba y pídeselo a Claude", """
 <p>Graba con tu celular, como siempre, y deja el archivo en <b>Brutos</b>. Luego pídele:</p>
-""" + code("g3", "Escríbele a Claude", "Toma el video que dejé en Brutos: transcríbelo con Whisper, quita los silencios y los errores, ponle subtítulos siguiendo CLAUDE.md y expórtalo en Exportados como v1.") + """
-<p>Si algo no te convence, díselo con tus palabras: «el gancho más grande», «menos pausa al final». Cuando esté bien, llévalo a <b>CapCut</b> para la música, los efectos y tu toque final. La IA hace lo pesado; el criterio lo pones tú.</p>"""),
+""" + code("g3", "Escríbele a Claude", "Toma el video que dejé en Brutos: transcríbelo con Whisper, quita los silencios y los errores, ponle subtítulos siguiendo CLAUDE.md, añade de fondo la música que dejé en Referencias (baja, debajo de la voz) y expórtalo en Exportados como v1.") + """
+<p>Si algo no te convence, díselo con tus palabras, como a un editor: «el gancho más grande», «menos pausa al final», «la música más baja». Claude lo corrige y te deja la <b>v2</b> sin borrar la v1. La IA hace lo pesado; el criterio lo pones tú.</p>"""),
 ]
 
 GUIA_FAQ = [
@@ -448,14 +448,14 @@ def pagina_guia():
 </section>"""
     faq = "".join(f"<details><summary>{escape(q)}</summary><p>{escape(a)}</p></details>" for q, a in GUIA_FAQ)
     n = len(GUIA_PASOS)
-    desc = "Guía gratis: edita tu primer video con Claude Code (plan Pro) y Codex, y termínalo en CapCut. Paso a paso, en Mac y Windows."
+    desc = "Guía gratis: edita tu primer video con Claude Code (plan Pro) y Codex, de principio a fin. Paso a paso, en Mac y Windows."
     html = head("Tu primer video con Claude + Codex · Bóveda Alfredits", desc, "comunidad/guia/", 1) + '\n<body data-guide="primer-video">\n' + barra(1) + f"""
 <main class="wrap wrap--narrow">
   <p class="crumb"><a href="../">← Bóveda de la comunidad</a></p>
   <section class="res-head">
     <span class="kw">Palabra clave <b>GUIA</b></span>
     <h1>Tu primer video con Claude + Codex</h1>
-    <p>En {n} pasos instalas Claude Code, le enseñas tu estilo, le conectas Codex para ahorrar límite y le pides tu primer video con palabras. Después lo terminas en CapCut.</p>
+    <p>En {n} pasos instalas Claude Code, le enseñas tu estilo, le conectas Codex para ahorrar límite y le pides tu primer video con palabras, de principio a fin.</p>
     <div class="meta"><span>{n} pasos</span><span>30 minutos</span><span>Mac y Windows</span><span>Claude Pro ($20/mes)</span></div>
     <div class="btns"><a class="btn" href="#video">Ver el video</a><a class="btn btn--ghost" href="#paso-1">Empezar la guía ↓</a></div>
   </section>
@@ -523,7 +523,7 @@ def pagina_hub():
       <div class="feature__txt">
         <span class="kw">Palabra clave <b>GUIA</b></span>
         <h3>Tu primer video con Claude + Codex</h3>
-        <p>Claude Code corta, transcribe y subtitula; Codex le ayuda con el código pesado. Tú lo terminas en CapCut. Paso a paso, en Mac o Windows.</p>
+        <p>Claude Code corta, transcribe y subtitula; Codex le ayuda con el código pesado. Tú lo corriges hablando. Paso a paso, en Mac o Windows.</p>
         <span class="btn" style="justify-self:start">Empezar la guía</span>
       </div>
       <div class="stats">
