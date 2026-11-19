@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Transcribe gratis en tu computadora · Bóveda Alfredits</title>
+<meta name="description" content="Whisper en tu computadora: cada palabra con su tiempo exacto, más un .srt listo para CapCut. Sin pagar suscripciones.">
+<meta name="author" content="Alfredo Navea">
+<link rel="canonical" href="https://alfredits.github.io/comunidad/texto/">
+<meta name="theme-color" content="#0A0A0F">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="../../assets/img/isotipo-color.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alfredits">
+<meta property="og:title" content="Transcribe gratis en tu computadora · Bóveda Alfredits">
+<meta property="og:description" content="Whisper en tu computadora: cada palabra con su tiempo exacto, más un .srt listo para CapCut. Sin pagar suscripciones.">
+<meta property="og:url" content="https://alfredits.github.io/comunidad/texto/">
+<meta property="og:locale" content="es_ES">
+<meta property="og:image" content="https://alfredits.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../assets/fonts/Coolvetica-Rg.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/comunidad.css?v=2">
+</head>
+<body>
+<header class="top"><div class="wrap top__in">
+  <a class="top__brand" href="../"><img src="../../assets/img/isotipo-color.svg" alt="" width="26" height="26">Bóveda · Alfredits</a>
+  <nav class="top__links" aria-label="Secciones">
+    <a href="../#gratis">Recursos</a>
+    <a href="../guia/">Guía</a>
+    <a class="hide-sm" href="../../">Mi web</a>
+  </nav>
+</div></header>
+<main class="wrap wrap--narrow">
+  <p class="crumb"><a href="../">← Bóveda de la comunidad</a></p>
+  <section class="res-head">
+    <span class="kw">Palabra clave <b>TEXTO</b></span>
+    <h1>Transcribe gratis en tu computadora</h1>
+    <p>Whisper en tu computadora: cada palabra con su tiempo exacto, más un .srt listo para CapCut. Sin pagar suscripciones.</p>
+    <div class="meta"><span>Script</span><span>Python + Whisper</span><span>Mac y Windows</span><span>Gratis</span></div>
+  </section>
+  <section class="block"><h2>Cómo usarlo</h2><ol class="how"><li>Copia el prompt y el script.</li><li>Pégalos en Claude Code o Codex: él instala Whisper y lo prueba contigo.</li><li>Usa el .srt en CapCut o el .json para cortes y subtítulos precisos.</li></ol></section>
+  <section class="block"><h2>1 · El prompt (Claude instala todo por ti)</h2><div class="code"><div class="code__bar"><span class="label">Escríbele a Claude Code o Codex</span><button class="copy" type="button" data-copy="p-texto">Copiar</button></div><pre id="p-texto">Quiero transcribir mis videos gratis en mi computadora.
+
+1. Revisa si tengo Python 3.10 o superior y FFmpeg. Si falta alguno, instálalo pidiéndome permiso.
+2. Instala el paquete faster-whisper con pip. Si tengo tarjeta NVIDIA, configúralo para usarla; si no, que funcione en el procesador.
+3. Crea en esta carpeta el archivo transcribir.py con el código que te pego abajo, sin cambiarlo.
+4. Pruébalo con mi video: python transcribir.py Brutos/[MI-VIDEO].mp4 --idioma es
+5. Enséñame las primeras líneas del .srt para comprobar que salió bien.
+
+Código:
+[PEGA AQUÍ EL SCRIPT]</pre></div></section><section class="block"><h2>2 · El script</h2><p>Pégalo donde dice [PEGA AQUÍ EL SCRIPT], o descárgalo.</p><div class="code code--scroll"><div class="code__bar"><span class="label">transcribir.py</span><button class="copy" type="button" data-copy="s-texto">Copiar</button></div><pre id="s-texto">&quot;&quot;&quot;Transcribe un video o audio en tu computadora, gratis, con Whisper (faster-whisper).
+
+Recurso gratis de @alfredits.ia · alfredits.github.io/comunidad/texto/
+
+Crea dos archivos al lado del video:
+  - &lt;nombre&gt;.srt          subtítulos por frases (sirven en CapCut, Premiere o YouTube)
+  - &lt;nombre&gt;.palabras.json cada palabra con su tiempo exacto (para karaoke y cortes)
+
+Uso:
+  python transcribir.py mi-video.mp4
+  python transcribir.py mi-video.mp4 --idioma es --modelo large-v3-turbo
+
+Necesita FFmpeg y el paquete faster-whisper (pip install faster-whisper).
+Si tienes tarjeta NVIDIA la usa; si no, funciona en el procesador (más lento).
+&quot;&quot;&quot;
+
+import argparse
+import json
+import os
+import subprocess
+import sys
+import tempfile
+import wave
+from pathlib import Path
+
+
+def activar_cuda_windows():
+    &quot;&quot;&quot;En Windows, las DLL de NVIDIA instaladas con pip no se encuentran solas.&quot;&quot;&quot;
+    if os.name != &quot;nt&quot;:
+        return
+    import site
+    for sp in site.getsitepackages():
+        nvidia = Path(sp) / &quot;nvidia&quot;
+        if nvidia.is_dir():
+            for carpeta in nvidia.glob(&quot;*/bin&quot;):
+                os.add_dll_directory(str(carpeta))
+                os.environ[&quot;PATH&quot;] = str(carpeta) + os.pathsep + os.environ[&quot;PATH&quot;]
+
+
+def extraer_audio(video, destino):
+    subprocess.run(
+        [&quot;ffmpeg&quot;, &quot;-y&quot;, &quot;-i&quot;, str(video), &quot;-vn&quot;, &quot;-ac&quot;, &quot;1&quot;, &quot;-ar&quot;, &quot;16000&quot;, &quot;-c:a&quot;, &quot;pcm_s16le&quot;, str(destino)],
+        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+    )
+
+
+def leer_wav(ruta):
+    import numpy as np
+    with wave.open(str(ruta), &quot;rb&quot;) as w:
+        pcm = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16)
+    return pcm.astype(np.float32) / 32768.0
+
+
+def cargar_modelo(nombre):
+    from faster_whisper import WhisperModel
+    try:
+        return WhisperModel(nombre, device=&quot;cuda&quot;, compute_type=&quot;int8_float16&quot;), &quot;la tarjeta de video&quot;
+    except Exception:
+        return WhisperModel(nombre, device=&quot;cpu&quot;, compute_type=&quot;int8&quot;), &quot;el procesador&quot;
+
+
+def tiempo_srt(s):
+    ms = int(round(s * 1000))
+    h, ms = divmod(ms, 3600000)
+    m, ms = divmod(ms, 60000)
+    seg, ms = divmod(ms, 1000)
+    return f&quot;{h:02d}:{m:02d}:{seg:02d},{ms:03d}&quot;
+
+
+def main():
+    ap = argparse.ArgumentParser(description=&quot;Transcribe gratis en tu computadora con Whisper&quot;)
+    ap.add_argument(&quot;archivo&quot;, type=Path, help=&quot;video o audio&quot;)
+    ap.add_argument(&quot;--idioma&quot;, default=None, help=&quot;código de idioma, por ejemplo es o en (si no, lo detecta)&quot;)
+    ap.add_argument(&quot;--modelo&quot;, default=&quot;large-v3-turbo&quot;, help=&quot;modelo de Whisper (small es más rápido)&quot;)
+    args = ap.parse_args()
+
+    archivo = args.archivo.resolve()
+    if not archivo.exists():
+        sys.exit(f&quot;No encuentro el archivo: {archivo}&quot;)
+
+    activar_cuda_windows()
+    with tempfile.TemporaryDirectory() as tmp:
+        audio = Path(tmp) / &quot;audio.wav&quot;
+        print(&quot;Sacando el audio…&quot;, flush=True)
+        extraer_audio(archivo, audio)
+        modelo, dispositivo = cargar_modelo(args.modelo)
+        print(f&quot;Transcribiendo con {dispositivo}…&quot;, flush=True)
+        segmentos, info = modelo.transcribe(leer_wav(audio), language=args.idioma,
+                                            word_timestamps=True, vad_filter=True, beam_size=5)
+        segmentos = list(segmentos)
+
+    palabras = [
+        {&quot;texto&quot;: w.word.strip(), &quot;inicio&quot;: round(w.start, 3), &quot;fin&quot;: round(w.end, 3)}
+        for seg in segmentos for w in (seg.words or []) if w.word.strip()
+    ]
+    srt = []
+    for i, seg in enumerate(segmentos, 1):
+        srt.append(f&quot;{i}\n{tiempo_srt(seg.start)} --&gt; {tiempo_srt(seg.end)}\n{seg.text.strip()}\n&quot;)
+
+    base = archivo.with_suffix(&quot;&quot;)
+    Path(f&quot;{base}.srt&quot;).write_text(&quot;\n&quot;.join(srt), encoding=&quot;utf-8&quot;)
+    Path(f&quot;{base}.palabras.json&quot;).write_text(
+        json.dumps({&quot;idioma&quot;: info.language, &quot;palabras&quot;: palabras}, ensure_ascii=False, indent=2), encoding=&quot;utf-8&quot;)
+    print(f&quot;Listo: {base.name}.srt y {base.name}.palabras.json ({len(palabras)} palabras, idioma {info.language})&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()</pre></div><div class="dl"><a class="btn btn--ghost" href="transcribir.py" download>Descargar transcribir.py</a></div></section><section class="block"><h2>Qué te devuelve</h2><ul><li><b>mi-video.srt</b>: subtítulos por frases. En CapCut: Texto → Subtítulos → Importar subtítulos (o arrástralo).</li><li><b>mi-video.palabras.json</b>: cada palabra con su inicio y su fin. Es lo que necesita Claude para cortar silencios y sincronizar subtítulos y animaciones.</li><li>Con tarjeta NVIDIA tarda segundos; en el procesador, unos minutos.</li></ul><div class="note"><span class="label">Nota de Alfredo</span><p>Así transcribo todos mis videos. La primera vez descarga el modelo (unos cientos de MB); después funciona sin internet.</p></div></section>
+  <section class="cta">
+  <span class="tc">00:00:59:29 · fin</span>
+  <h2>¿Te sirvió? Pásaselo a ese amigo que sigue pagando por transcribir.</h2>
+  <p>Cada semana regalo una herramienta nueva para editar con IA. Sígueme para no perderte la próxima.</p>
+  <div class="btns">
+    <a class="btn" href="https://www.instagram.com/alfredits.ia/" rel="noopener">Seguir en Instagram</a>
+    <a class="btn btn--ghost" href="https://www.tiktok.com/@alfredits.ia" rel="noopener">Seguir en TikTok</a>
+    <button class="btn btn--ghost" type="button" data-copy="url-texto">Copiar enlace</button>
+  </div>
+  <span id="url-texto" hidden>https://alfredits.github.io/comunidad/texto/</span>
+</section>
+<section class="block"><h2>Más recursos gratis</h2><div class="more"><a href="../gancho/"><span>10 ganchos para tu reel</span><span>GANCHO →</span></a><a href="../subs/"><span>Subtítulos karaoke con Claude</span><span>SUBS →</span></a><a href="../estilo/"><span>Checklist de retención</span><span>ESTILO →</span></a></div></section>
+</main>
+<footer class="foot"><div class="wrap foot__in">
+  <span>Hecho por Alfredo Navea · <a href="https://www.instagram.com/alfredits.ia/" rel="noopener">@alfredits.ia</a></span>
+  <span><a href="../">Bóveda</a> · <a href="../../">Mi web</a> · <a href="https://www.tiktok.com/@alfredits.ia" rel="noopener">TikTok</a></span>
+</div></footer>
+<script src="../assets/comunidad.js?v=1" defer></script>
+</body>
+</html>

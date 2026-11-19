@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Subtítulos karaoke con Claude · Bóveda Alfredits</title>
+<meta name="description" content="El prompt exacto para que Claude transcriba tu video y le ponga subtítulos que se encienden palabra por palabra.">
+<meta name="author" content="Alfredo Navea">
+<link rel="canonical" href="https://alfredits.github.io/comunidad/subs/">
+<meta name="theme-color" content="#0A0A0F">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="../../assets/img/isotipo-color.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alfredits">
+<meta property="og:title" content="Subtítulos karaoke con Claude · Bóveda Alfredits">
+<meta property="og:description" content="El prompt exacto para que Claude transcriba tu video y le ponga subtítulos que se encienden palabra por palabra.">
+<meta property="og:url" content="https://alfredits.github.io/comunidad/subs/">
+<meta property="og:locale" content="es_ES">
+<meta property="og:image" content="https://alfredits.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../assets/fonts/Coolvetica-Rg.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/comunidad.css?v=2">
+</head>
+<body>
+<header class="top"><div class="wrap top__in">
+  <a class="top__brand" href="../"><img src="../../assets/img/isotipo-color.svg" alt="" width="26" height="26">Bóveda · Alfredits</a>
+  <nav class="top__links" aria-label="Secciones">
+    <a href="../#gratis">Recursos</a>
+    <a href="../guia/">Guía</a>
+    <a class="hide-sm" href="../../">Mi web</a>
+  </nav>
+</div></header>
+<main class="wrap wrap--narrow">
+  <p class="crumb"><a href="../">← Bóveda de la comunidad</a></p>
+  <section class="res-head">
+    <span class="kw">Palabra clave <b>SUBS</b></span>
+    <h1>Subtítulos karaoke con Claude</h1>
+    <p>El prompt exacto para que Claude transcriba tu video y le ponga subtítulos que se encienden palabra por palabra.</p>
+    <div class="meta"><span>Prompt</span><span>Claude Code o Codex</span><span>Unos minutos</span><span>Gratis</span></div>
+  </section>
+  <section class="block"><h2>Cómo usarlo</h2><ol class="how"><li>Abre Claude Code (o Codex) en la carpeta de tu proyecto.</li><li>Copia el prompt y cambia lo que va entre [corchetes].</li><li>Revisa las palabras dudosas que te enseña y deja que renderice.</li></ol></section>
+  <section class="block"><h2>El prompt</h2><div class="code"><div class="code__bar"><span class="label">Escríbele a Claude Code o Codex</span><button class="copy" type="button" data-copy="p-subs">Copiar</button></div><pre id="p-subs">Eres mi editor de subtítulos. En la carpeta Brutos está mi video [NOMBRE DEL VIDEO].
+
+1. Transcríbelo en mi computadora con Whisper (faster-whisper), con el tiempo de cada palabra. Idioma: [español].
+2. Crea subtítulos estilo karaoke: bloques de 2 a 4 palabras; la frase aparece en gris claro y cada palabra se enciende en [COLOR, por ejemplo #19D3C5] justo cuando la digo.
+3. Fuente [FUENTE], grande y fácil de leer, sin fondo y con una sombra suave. Colócalos a la altura del pecho, nunca encima de la cara, y dentro de la zona segura de un video vertical de 1080×1920.
+4. Máximo una palabra clave por frase puede ir un poco más grande. Sin puntos finales.
+5. Antes de renderizar, revisa la transcripción y enséñame las palabras dudosas para corregirlas.
+6. Renderiza con FFmpeg (subtítulos ASS quemados en el video) y guárdalo en Exportados como [NOMBRE]-subs-v1.mp4. Guarda también el archivo .ass por si quiero cambiar algo.
+
+Si te falta una herramienta (FFmpeg, Python o faster-whisper), instálala pidiéndome permiso antes.</pre></div></section><section class="block"><h2>Antes de empezar</h2><ul><li>Necesitas <b>Claude Code</b> (plan Pro de Claude) o <b>Codex</b> (incluido en ChatGPT, también en el plan gratis). Si no lo tienes, empieza por <a href="../guia/">la guía de tu primer video</a>.</li><li>Ten tu carpeta con las subcarpetas <b>Brutos</b> y <b>Exportados</b>.</li><li>¿No tienes tarjeta NVIDIA? Funciona igual, solo tarda más en transcribir.</li></ul><div class="note"><span class="label">Nota de Alfredo</span><p>Lo que antes me tomaba una hora en CapCut, palabra por palabra, ahora son minutos. El secreto está en el punto 5: revisar las palabras dudosas antes de renderizar.</p></div></section>
+  <section class="cta">
+  <span class="tc">00:00:59:29 · fin</span>
+  <h2>¿Te sirvió? Pásaselo a ese amigo que todavía hace los subtítulos a mano.</h2>
+  <p>Cada semana regalo una herramienta nueva para editar con IA. Sígueme para no perderte la próxima.</p>
+  <div class="btns">
+    <a class="btn" href="https://www.instagram.com/alfredits.ia/" rel="noopener">Seguir en Instagram</a>
+    <a class="btn btn--ghost" href="https://www.tiktok.com/@alfredits.ia" rel="noopener">Seguir en TikTok</a>
+    <button class="btn btn--ghost" type="button" data-copy="url-subs">Copiar enlace</button>
+  </div>
+  <span id="url-subs" hidden>https://alfredits.github.io/comunidad/subs/</span>
+</section>
+<section class="block"><h2>Más recursos gratis</h2><div class="more"><a href="../gancho/"><span>10 ganchos para tu reel</span><span>GANCHO →</span></a><a href="../estilo/"><span>Checklist de retención</span><span>ESTILO →</span></a><a href="../ritmo/"><span>Quita los silencios de tu voz</span><span>RITMO →</span></a></div></section>
+</main>
+<footer class="foot"><div class="wrap foot__in">
+  <span>Hecho por Alfredo Navea · <a href="https://www.instagram.com/alfredits.ia/" rel="noopener">@alfredits.ia</a></span>
+  <span><a href="../">Bóveda</a> · <a href="../../">Mi web</a> · <a href="https://www.tiktok.com/@alfredits.ia" rel="noopener">TikTok</a></span>
+</div></footer>
+<script src="../assets/comunidad.js?v=1" defer></script>
+</body>
+</html>

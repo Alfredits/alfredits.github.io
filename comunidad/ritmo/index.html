@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quita los silencios de tu voz · Bóveda Alfredits</title>
+<meta name="description" content="Un script que deja cada pausa en una décima de segundo y acelera la voz un 10 % sin que suene rara.">
+<meta name="author" content="Alfredo Navea">
+<link rel="canonical" href="https://alfredits.github.io/comunidad/ritmo/">
+<meta name="theme-color" content="#0A0A0F">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="../../assets/img/isotipo-color.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alfredits">
+<meta property="og:title" content="Quita los silencios de tu voz · Bóveda Alfredits">
+<meta property="og:description" content="Un script que deja cada pausa en una décima de segundo y acelera la voz un 10 % sin que suene rara.">
+<meta property="og:url" content="https://alfredits.github.io/comunidad/ritmo/">
+<meta property="og:locale" content="es_ES">
+<meta property="og:image" content="https://alfredits.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../assets/fonts/Coolvetica-Rg.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/comunidad.css?v=2">
+</head>
+<body>
+<header class="top"><div class="wrap top__in">
+  <a class="top__brand" href="../"><img src="../../assets/img/isotipo-color.svg" alt="" width="26" height="26">Bóveda · Alfredits</a>
+  <nav class="top__links" aria-label="Secciones">
+    <a href="../#gratis">Recursos</a>
+    <a href="../guia/">Guía</a>
+    <a class="hide-sm" href="../../">Mi web</a>
+  </nav>
+</div></header>
+<main class="wrap wrap--narrow">
+  <p class="crumb"><a href="../">← Bóveda de la comunidad</a></p>
+  <section class="res-head">
+    <span class="kw">Palabra clave <b>RITMO</b></span>
+    <h1>Quita los silencios de tu voz</h1>
+    <p>Un script que deja cada pausa en una décima de segundo y acelera la voz un 10 % sin que suene rara.</p>
+    <div class="meta"><span>Script</span><span>Python + FFmpeg</span><span>Segundos</span><span>Gratis</span></div>
+  </section>
+  <section class="block"><h2>Cómo usarlo</h2><ol class="how"><li>Copia el prompt y el script.</li><li>Pégalos en Claude Code o Codex: él instala lo que falte y lo ejecuta.</li><li>Arrastra el audio nuevo a CapCut.</li></ol></section>
+  <section class="block"><h2>1 · El prompt (Claude instala todo por ti)</h2><div class="code"><div class="code__bar"><span class="label">Escríbele a Claude Code o Codex</span><button class="copy" type="button" data-copy="p-ritmo">Copiar</button></div><pre id="p-ritmo">Quiero quitar los silencios de mi voz en off y acelerarla un poco.
+
+1. Revisa si tengo Python y FFmpeg instalados. Si falta alguno, instálalo pidiéndome permiso.
+2. Crea en esta carpeta el archivo voz_ritmo.py con el código que te pego abajo, sin cambiarlo.
+3. Ejecútalo con mi audio: python voz_ritmo.py Brutos/[MI-AUDIO].mp3 Exportados/[MI-AUDIO]-rapida.wav
+4. Dime cuánto duraba antes y cuánto dura ahora.
+
+Código:
+[PEGA AQUÍ EL SCRIPT]</pre></div></section><section class="block"><h2>2 · El script</h2><p>Pégalo donde dice [PEGA AQUÍ EL SCRIPT], o descárgalo.</p><div class="code code--scroll"><div class="code__bar"><span class="label">voz_ritmo.py</span><button class="copy" type="button" data-copy="s-ritmo">Copiar</button></div><pre id="s-ritmo">&quot;&quot;&quot;Quita silencios &gt;0,22 s (deja 0,1 s) y acelera a 1,1x. Uso: python voz_ritmo.py assets/voz.mp3 assets/voz-rapida.wav&quot;&quot;&quot;
+import subprocess,re,sys
+src,dst=sys.argv[1],sys.argv[2]
+log=subprocess.run([&#x27;ffmpeg&#x27;,&#x27;-hide_banner&#x27;,&#x27;-i&#x27;,src,&#x27;-af&#x27;,&#x27;silencedetect=noise=-38dB:d=0.22&#x27;,&#x27;-f&#x27;,&#x27;null&#x27;,&#x27;-&#x27;],capture_output=True,text=True).stderr
+st=[float(x) for x in re.findall(r&#x27;silence_start: ([\d.]+)&#x27;,log)]; en=[float(x) for x in re.findall(r&#x27;silence_end: ([\d.]+)&#x27;,log)]
+dur=float(subprocess.check_output([&#x27;ffprobe&#x27;,&#x27;-v&#x27;,&#x27;error&#x27;,&#x27;-show_entries&#x27;,&#x27;format=duration&#x27;,&#x27;-of&#x27;,&#x27;csv=p=0&#x27;,src]))
+K=.05;keep=[];a=0
+for s,e in zip(st,en):
+    if e&gt;=dur-.05: break
+    keep.append((a,s+K)); a=e-K
+keep.append((a,dur))
+sel=&#x27;+&#x27;.join(f&#x27;between(t,{x:.3f},{y:.3f})&#x27; for x,y in keep)
+subprocess.run([&#x27;ffmpeg&#x27;,&#x27;-y&#x27;,&#x27;-hide_banner&#x27;,&#x27;-loglevel&#x27;,&#x27;error&#x27;,&#x27;-i&#x27;,src,&#x27;-af&#x27;,f&quot;aselect=&#x27;{sel}&#x27;,asetpts=N/SR/TB,atempo=1.1&quot;,dst],check=True)</pre></div><div class="dl"><a class="btn btn--ghost" href="voz_ritmo.py" download>Descargar voz_ritmo.py</a></div></section><section class="block"><h2>Qué hace exactamente</h2><ul><li>Busca las pausas de más de <b>0,22 s</b> y las deja en <b>0,1 s</b>.</li><li>Acelera la voz a <b>1,1×</b> sin cambiar el tono.</li><li>Te devuelve un .wav limpio para editar.</li></ul><div class="note"><span class="label">Nota de Alfredo</span><p>Funciona solo con audio: úsalo con tu voz en off. Si lo usas con un video donde hablas a cámara, el audio se recorta pero la imagen no, y se desincronizan.</p></div></section>
+  <section class="cta">
+  <span class="tc">00:00:59:29 · fin</span>
+  <h2>¿Te sirvió? Pásaselo a ese amigo que sigue cortando silencios a mano.</h2>
+  <p>Cada semana regalo una herramienta nueva para editar con IA. Sígueme para no perderte la próxima.</p>
+  <div class="btns">
+    <a class="btn" href="https://www.instagram.com/alfredits.ia/" rel="noopener">Seguir en Instagram</a>
+    <a class="btn btn--ghost" href="https://www.tiktok.com/@alfredits.ia" rel="noopener">Seguir en TikTok</a>
+    <button class="btn btn--ghost" type="button" data-copy="url-ritmo">Copiar enlace</button>
+  </div>
+  <span id="url-ritmo" hidden>https://alfredits.github.io/comunidad/ritmo/</span>
+</section>
+<section class="block"><h2>Más recursos gratis</h2><div class="more"><a href="../gancho/"><span>10 ganchos para tu reel</span><span>GANCHO →</span></a><a href="../subs/"><span>Subtítulos karaoke con Claude</span><span>SUBS →</span></a><a href="../estilo/"><span>Checklist de retención</span><span>ESTILO →</span></a></div></section>
+</main>
+<footer class="foot"><div class="wrap foot__in">
+  <span>Hecho por Alfredo Navea · <a href="https://www.instagram.com/alfredits.ia/" rel="noopener">@alfredits.ia</a></span>
+  <span><a href="../">Bóveda</a> · <a href="../../">Mi web</a> · <a href="https://www.tiktok.com/@alfredits.ia" rel="noopener">TikTok</a></span>
+</div></footer>
+<script src="../assets/comunidad.js?v=1" defer></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Conecta Codex a Claude y ahorra límite · Bóveda Alfredits</title>
+<meta name="description" content="Instala el plugin oficial de Codex en Claude Code: Claude dirige y revisa, Codex escribe el código pesado con su propio límite.">
+<meta name="author" content="Alfredo Navea">
+<link rel="canonical" href="https://alfredits.github.io/comunidad/codex/">
+<meta name="theme-color" content="#0A0A0F">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="../../assets/img/isotipo-color.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Alfredits">
+<meta property="og:title" content="Conecta Codex a Claude y ahorra límite · Bóveda Alfredits">
+<meta property="og:description" content="Instala el plugin oficial de Codex en Claude Code: Claude dirige y revisa, Codex escribe el código pesado con su propio límite.">
+<meta property="og:url" content="https://alfredits.github.io/comunidad/codex/">
+<meta property="og:locale" content="es_ES">
+<meta property="og:image" content="https://alfredits.github.io/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../../assets/fonts/Coolvetica-Rg.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/comunidad.css?v=2">
+</head>
+<body>
+<header class="top"><div class="wrap top__in">
+  <a class="top__brand" href="../"><img src="../../assets/img/isotipo-color.svg" alt="" width="26" height="26">Bóveda · Alfredits</a>
+  <nav class="top__links" aria-label="Secciones">
+    <a href="../#gratis">Recursos</a>
+    <a href="../guia/">Guía</a>
+    <a class="hide-sm" href="../../">Mi web</a>
+  </nav>
+</div></header>
+<main class="wrap wrap--narrow">
+  <p class="crumb"><a href="../">← Bóveda de la comunidad</a></p>
+  <section class="res-head">
+    <span class="kw">Palabra clave <b>CODEX</b></span>
+    <h1>Conecta Codex a Claude y ahorra límite</h1>
+    <p>Instala el plugin oficial de Codex en Claude Code: Claude dirige y revisa, Codex escribe el código pesado con su propio límite.</p>
+    <div class="meta"><span>Guía</span><span>Claude Code + ChatGPT</span><span>10 minutos</span><span>Gratis</span></div>
+  </section>
+  <section class="block"><h2>Cómo usarlo</h2><ol class="how"><li>Abre Claude Code en tu carpeta.</li><li>Pega los 3 comandos, uno por uno.</li><li>Añade las reglas a tu CLAUDE.md para que Claude delegue solo.</li></ol></section>
+  <section class="block"><h2>Lo que necesitas</h2><ul><li><b>Claude Code</b> (en la app de escritorio de Claude, pestaña Code; pide el plan Pro).</li><li>Una <b>cuenta de ChatGPT</b>. Codex está incluido en todos los planes, también en el gratis, con límites distintos.</li></ul></section><section class="block"><h2>1 · Añade el plugin</h2><p>Escribe en Claude Code:</p><div class="code"><div class="code__bar"><span class="label">En Claude Code</span><button class="copy" type="button" data-copy="c1">Copiar</button></div><pre id="c1">/plugin marketplace add openai/codex-plugin-cc</pre></div><div class="code"><div class="code__bar"><span class="label">En Claude Code</span><button class="copy" type="button" data-copy="c2">Copiar</button></div><pre id="c2">/plugin install codex@openai-codex</pre></div><p>Es el plugin oficial de OpenAI. Si te pregunta dónde instalarlo, elige el ámbito de usuario para tenerlo en todas tus carpetas. Si después no te aparecen los comandos /codex, cierra y vuelve a abrir la app de Claude.</p></section><section class="block"><h2>2 · Prepara Codex</h2><div class="code"><div class="code__bar"><span class="label">En Claude Code</span><button class="copy" type="button" data-copy="c3">Copiar</button></div><pre id="c3">/codex:setup</pre></div><p>Revisa si tienes Codex instalado; si no, te ofrece instalarlo (necesita Node.js: si no lo tienes, pídele a Claude «instala Node.js» y acepta). Cuando te lo pida, <b>inicia sesión con tu cuenta de ChatGPT</b>.</p></section><section class="block"><h2>3 · Pásale trabajo</h2><div class="code"><div class="code__bar"><span class="label">En Claude Code</span><button class="copy" type="button" data-copy="c4">Copiar</button></div><pre id="c4">/codex:rescue Arma el proyecto del reel siguiendo el brief de BRIEF.md</pre></div><p>Con <b>/codex:rescue</b> Claude le pasa la tarea a Codex y te trae el resultado. También tienes <b>/codex:review</b> para que Codex revise lo que hizo Claude.</p></section><section class="block"><h2>4 · Que Claude delegue solo</h2><p>Pega esto en tu CLAUDE.md (¿no lo tienes? <a href="../memoria/">aquí está la plantilla</a>):</p><div class="code"><div class="code__bar"><span class="label">Añade a tu CLAUDE.md</span><button class="copy" type="button" data-copy="c5">Copiar</button></div><pre id="c5">## Trabajo con Codex
+- Cuando una tarea sea escribir mucho código (armar el proyecto de un video, animaciones, scripts largos o arreglos grandes), pásasela a Codex con /codex:rescue y un brief claro: qué hay que hacer, en qué archivos y cómo se ve terminado.
+- Tú (Claude) decides, escribes el brief y revisas lo que devuelve Codex antes de enseñármelo. Si algo está mal, se lo devuelves a Codex con las correcciones en una sola tanda.
+- Las tareas cortas (una edición pequeña, una pregunta) las haces tú directamente.</pre></div><div class="note"><span class="label">Nota de Alfredo</span><p>Así trabajo: Claude decide, escribe el brief y revisa; Codex construye. Es como tener dos editores, uno dirige y el otro ejecuta. Cada uno gasta el límite de su propia cuenta.</p></div></section>
+  <section class="cta">
+  <span class="tc">00:00:59:29 · fin</span>
+  <h2>¿Te sirvió? Pásaselo a ese amigo que siempre se queda sin límite.</h2>
+  <p>Cada semana regalo una herramienta nueva para editar con IA. Sígueme para no perderte la próxima.</p>
+  <div class="btns">
+    <a class="btn" href="https://www.instagram.com/alfredits.ia/" rel="noopener">Seguir en Instagram</a>
+    <a class="btn btn--ghost" href="https://www.tiktok.com/@alfredits.ia" rel="noopener">Seguir en TikTok</a>
+    <button class="btn btn--ghost" type="button" data-copy="url-codex">Copiar enlace</button>
+  </div>
+  <span id="url-codex" hidden>https://alfredits.github.io/comunidad/codex/</span>
+</section>
+<section class="block"><h2>Más recursos gratis</h2><div class="more"><a href="../gancho/"><span>10 ganchos para tu reel</span><span>GANCHO →</span></a><a href="../subs/"><span>Subtítulos karaoke con Claude</span><span>SUBS →</span></a><a href="../estilo/"><span>Checklist de retención</span><span>ESTILO →</span></a></div></section>
+</main>
+<footer class="foot"><div class="wrap foot__in">
+  <span>Hecho por Alfredo Navea · <a href="https://www.instagram.com/alfredits.ia/" rel="noopener">@alfredits.ia</a></span>
+  <span><a href="../">Bóveda</a> · <a href="../../">Mi web</a> · <a href="https://www.tiktok.com/@alfredits.ia" rel="noopener">TikTok</a></span>
+</div></footer>
+<script src="../assets/comunidad.js?v=1" defer></script>
+</body>
+</html>
