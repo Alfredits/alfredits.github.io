@@ -17,8 +17,8 @@ WHATSAPP = "584245738444"
 WHATSAPP_DISPLAY = "+58 424 573 8444"
 INSTAGRAM = "https://www.instagram.com/alfredlno/"
 INSTAGRAM_HANDLE = "@alfredlno"
-TIKTOK = "https://www.tiktok.com/@alfredo_navea"
-TIKTOK_HANDLE = "@alfredo_navea"
+TIKTOK = "https://www.tiktok.com/@alfredits.ia"
+TIKTOK_HANDLE = "@alfredits.ia"
 
 # Secciones de trabajos: el orden de esta lista es el orden en la página.
 # "slug" es el prefijo de los archivos en assets/video (inmobiliaria-1.mp4…).
