@@ -197,6 +197,26 @@ Lee este archivo antes de cualquier tarea. Si te corrijo algo que sirva para sie
 - Antes de un cambio grande, dime el plan en 3 líneas.
 - Al terminar, dime qué hiciste y qué no pudiste comprobar."""
 
+SKILL_VIDEOUSE = """Instálame la skill video-use (https://github.com/browser-use/video-use) para Claude Code.
+
+1. Lee su install.md y sigue los pasos: clona el repositorio, instala sus dependencias y FFmpeg si no lo tengo, y regístrala en mi carpeta global de skills (~/.claude/skills/video-use).
+2. Para transcribir, video-use usa ElevenLabs y necesita una clave de API. NO la configures todavía: pregúntame si quiero usar ElevenLabs o el transcriptor gratis de Whisper en mi computadora (https://alfredits.github.io/comunidad/texto/).
+3. Si elijo Whisper, instálalo con ese script y, cuando use video-use, transcribe con él en lugar de ElevenLabs, guardando el resultado en el mismo formato que espera video-use.
+4. Cuando termines, dime que está lista y no transcribas nada hasta que yo te pase un video."""
+
+SKILL_HYPERFRAMES = """Instálame la skill de HyperFrames (de HeyGen) para Claude Code, en mi carpeta global de skills.
+
+1. Comprueba que tengo Node.js; si no, instálalo.
+2. Ejecuta: npx skills add heygen-com/hyperframes
+3. Cuando termine, haz una prueba corta: un video vertical de 5 segundos con el texto "Hola" animado, y dime dónde quedó el MP4."""
+
+SKILL_EARSHOT = """Instálame earshot (https://github.com/Leonxlnx/earshot) y su skill para Claude Code.
+
+1. Comprueba que tengo Python 3.10 o superior, uv y FFmpeg; instala lo que falte.
+2. Instala earshot siguiendo su README y descarga sus modelos (pesan alrededor de 1 GB).
+3. Copia sus skills de la carpeta skills/ a mi carpeta global de skills (~/.claude/skills).
+4. Pruébalo con un audio o video mío: dime qué suena, cuándo y qué tan fuerte."""
+
 RECURSOS = [
     dict(
         slug="gancho", palabra="GANCHO", tipo="Prompt", titulo="10 ganchos para tu reel",
@@ -277,15 +297,15 @@ RECURSOS = [
         linea="Instala el plugin oficial de Codex en Claude Code: Claude dirige y revisa, Codex escribe el código pesado con su propio límite.",
         meta=["Guía", "Claude Code + ChatGPT", "10 minutos", "Gratis"],
         amigo="ese amigo que siempre se queda sin límite",
-        pasos=["Abre Claude Code en tu carpeta.", "Pega los 3 comandos, uno por uno.", "Añade las reglas a tu CLAUDE.md para que Claude delegue solo."],
+        pasos=["Abre Claude Code en tu carpeta.", "Pega los 4 comandos, uno por uno.", "Añade las reglas a tu CLAUDE.md para que Claude delegue solo."],
         cuerpo=lambda: (
             '<section class="block"><h2>Lo que necesitas</h2><ul>'
             '<li><b>Claude Code</b> (en la app de escritorio de Claude, pestaña Code; pide el plan Pro).</li>'
             '<li>Una <b>cuenta de ChatGPT</b>. Codex está incluido en todos los planes, también en el gratis, con límites distintos.</li>'
             '</ul></section>'
             '<section class="block"><h2>1 · Añade el plugin</h2><p>Escribe en Claude Code:</p>'
-            + code("c1", "En Claude Code", "/plugin marketplace add openai/codex-plugin-cc") + code("c2", "En Claude Code", "/plugin install codex@openai-codex") +
-            '<p>Es el plugin oficial de OpenAI. Si te pregunta dónde instalarlo, elige el ámbito de usuario para tenerlo en todas tus carpetas. Si después no te aparecen los comandos /codex, cierra y vuelve a abrir la app de Claude.</p></section>'
+            + code("c1", "En Claude Code", "/plugin marketplace add openai/codex-plugin-cc") + code("c2", "En Claude Code", "/plugin install codex@openai-codex") + code("c2b", "En Claude Code", "/reload-plugins") +
+            '<p>Es el plugin oficial de OpenAI. Si te pregunta dónde instalarlo, elige el ámbito de usuario para tenerlo en todas tus carpetas. El tercer comando recarga los plugins para que aparezcan los comandos /codex; si aun así no salen, cierra y vuelve a abrir la app de Claude.</p></section>'
             '<section class="block"><h2>2 · Prepara Codex</h2>' + code("c3", "En Claude Code", "/codex:setup") +
             '<p>Revisa si tienes Codex instalado; si no, te ofrece instalarlo (necesita Node.js: si no lo tienes, pídele a Claude «instala Node.js» y acepta). Cuando te lo pida, <b>inicia sesión con tu cuenta de ChatGPT</b>.</p></section>'
             '<section class="block"><h2>3 · Pásale trabajo</h2>' + code("c4", "En Claude Code", "/codex:rescue Arma el proyecto del reel siguiendo el brief de BRIEF.md") +
@@ -310,10 +330,27 @@ RECURSOS = [
             '</ul>' + nota("Mi sección favorita es «Nunca hacer». Ahí va cada error que ya corregí; con el tiempo es lo que hace que la IA edite como tú.") + '</section>'
         ),
     ),
+    dict(
+        slug="skills", palabra="SKILLS", tipo="Guía", titulo="Las 3 skills que instalo para editar",
+        linea="video-use corta, HyperFrames anima y earshot escucha. Las tres son gratis y de código abierto; Claude las instala por ti.",
+        meta=["Guía", "Claude Code", "20 minutos", "Gratis"],
+        amigo="alguien que quiera editar con IA",
+        pasos=["Abre Claude Code en tu carpeta de videos.", "Pega el prompt de cada skill, una por una.", "Prueba cada una con un video tuyo antes de pasar a la siguiente."],
+        cuerpo=lambda: (
+            '<section class="block"><h2>Qué es una skill</h2><p>Un manual que le enseña a Claude a hacer algo concreto. Se instala una vez y Claude la usa sola cuando la necesita. Necesitas <b>Claude Code</b> (plan Pro de Claude); si no lo tienes, empieza por <a href="../guia/">la guía de tu primer video</a>.</p></section>'
+            '<section class="block"><h2>1 · video-use: corta tus brutos</h2><p>Le pasas tus brutos y corta los silencios y los errores leyendo la transcripción. Es de browser-use, código abierto.</p>'
+            + code("sk1", "Escríbele a Claude Code", SKILL_VIDEOUSE) +
+            nota("Por defecto video-use transcribe con ElevenLabs, que pide una clave de API. Yo no la uso: transcribo gratis en mi computadora con <a href=\"../texto/\">el script de TEXTO</a>, y el prompt ya le dice a Claude que te pregunte cuál quieres.") + '</section>'
+            '<section class="block"><h2>2 · HyperFrames: animaciones y textos</h2><p>Claude escribe las animaciones y los textos de tu video con código y los convierte en MP4. Es de HeyGen, gratis y de código abierto.</p>'
+            + code("sk2", "Escríbele a Claude Code", SKILL_HYPERFRAMES) + '</section>'
+            '<section class="block"><h2>3 · earshot: escucha tu audio</h2><p>Claude no oye. Con earshot, escucha tu audio y te dice qué suena, cuándo y qué tan fuerte, para mezclar música y efectos. Funciona en el procesador, sin tarjeta de video.</p>'
+            + code("sk3", "Escríbele a Claude Code", SKILL_EARSHOT) +
+            nota("Las tres juntas son la base de cómo edito hoy: video-use corta, HyperFrames anima y earshot me dice si la mezcla está bien antes de exportar.") + '</section>'
+        ),
+    ),
 ]
 
 PROXIMOS = [
-    dict(palabra="SKILLS", titulo="Las 3 skills que instalo para editar", linea="Con su guía de instalación paso a paso.", fecha="25 nov"),
 ]
 
 
