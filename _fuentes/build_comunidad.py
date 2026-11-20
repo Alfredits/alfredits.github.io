@@ -400,8 +400,8 @@ GUIA_PASOS = [
 <p>Antes de instalar o cambiar algo te pide permiso: lee lo que te pide y acepta.</p>
 <div data-os-show="win"><p>Si en Windows te pide Git, instala <a href="https://git-scm.com/downloads/win" rel="noopener">Git para Windows</a> (siguiente, siguiente, finalizar) y vuelve a abrir la app.</p></div>"""),
     ("herramientas", "Dale herramientas", """
-<p>Son programas gratis: <b>FFmpeg</b> corta y exporta, y <b>Whisper</b> transcribe cada palabra con su tiempo. No los instalas tú: pega esto y Claude lo hace.</p>
-""" + code("g1", "Escríbele a Claude", "Instala en mi computadora FFmpeg, Python y el paquete faster-whisper. Verifica que cada uno funcione y avísame cuando esté listo. Pídeme permiso antes de cada instalación.") + """
+<p>Son 4 programas gratis: <b>FFmpeg</b> corta y exporta, <b>Whisper</b> transcribe cada palabra con su tiempo y <b>HyperFrames</b> hace las animaciones con código. No los instalas tú: pega esto y Claude lo hace.</p>
+""" + code("g1", "Escríbele a Claude", "Instala en mi computadora FFmpeg, Python, Node.js 22 o superior, el paquete faster-whisper y HyperFrames con su plugin para Claude Code (github.com/heygen-com/hyperframes). Verifica que cada uno funcione y avísame cuando esté listo. Pídeme permiso antes de cada instalación.") + """
 <p>Tarda unos minutos. Si algo falla, copia el error y pégaselo a Claude.</p>"""),
     ("estilo", "Enséñale tu estilo", """
 <p>Claude lee siempre un archivo llamado <b>CLAUDE.md</b> al empezar. Ahí van tus reglas de edición, para no repetirlas cada vez.</p>
