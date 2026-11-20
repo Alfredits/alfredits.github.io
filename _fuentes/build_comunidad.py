@@ -57,7 +57,7 @@ def head(titulo, desc, ruta, nivel):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="{pre}assets/comunidad.css?v=2">
+<link rel="stylesheet" href="{pre}assets/comunidad.css?v=3">
 </head>"""
 
 
@@ -354,36 +354,39 @@ PROXIMOS = [
 ]
 
 
+ESTILO_REGLAS = [
+    ("Regla 1 · El gancho en el primer segundo, con la mejor imagen", [
+        "El primer cuadro ya es la imagen más fuerte del video. Nada de logos, intros ni «hola, ¿cómo están?».",
+        "La primera frase se dice en el segundo 0, sin respirar antes.",
+        "Hay un texto en pantalla de 5 palabras como máximo que se entiende sin sonido.",
+        "El gancho promete algo que el video cumple.",
+        "Prueba del pulgar: con el sonido apagado, ¿te quedarías después del primer segundo?",
+    ]),
+    ("Regla 2 · Algo nuevo cada segundo, nada quieto", [
+        "Ningún plano dura más de 2–3 segundos sin un cambio: corte, zoom, texto, b-roll o gráfico.",
+        "Las pausas dentro de una frase no pasan de 0,3 s.",
+        "Zoom-in (de 100 % a 106–112 %) en las frases importantes, no en todas.",
+        "Cada b-roll o gráfico aparece justo en la palabra que lo nombra.",
+        "Cada efecto de sonido acompaña una acción en pantalla.",
+        "La música va por debajo de la voz: la voz siempre se entiende.",
+    ]),
+    ("Regla 3 · Subtítulos que guían la mirada a la palabra clave", [
+        "Frases cortas: de 2 a 4 palabras por bloque, al ritmo de la voz.",
+        "Una sola fuente y un tamaño base; las palabras clave más grandes y en color (máximo 5 o 6 en todo el video).",
+        "Los subtítulos no tapan la cara, la boca ni el producto, y quedan dentro de la zona segura.",
+        "Sin punto final y sin errores de los subtítulos automáticos.",
+        "Ningún texto repite el subtítulo en otra parte de la pantalla.",
+    ]),
+    ("Antes de exportar", [
+        "El video termina justo después de la última palabra.",
+        "Hay un solo llamado a la acción, claro.",
+        "Exportas en 1080×1920 y 30 fps.",
+    ]),
+]
+
+
 def estilo_cuerpo():
-    reglas = [
-        ("Regla 1 · El gancho en el primer segundo, con la mejor imagen", [
-            "El primer cuadro ya es la imagen más fuerte del video. Nada de logos, intros ni «hola, ¿cómo están?».",
-            "La primera frase se dice en el segundo 0, sin respirar antes.",
-            "Hay un texto en pantalla de 5 palabras como máximo que se entiende sin sonido.",
-            "El gancho promete algo que el video cumple.",
-            "Prueba del pulgar: con el sonido apagado, ¿te quedarías después del primer segundo?",
-        ]),
-        ("Regla 2 · Algo nuevo cada segundo, nada quieto", [
-            "Ningún plano dura más de 2–3 segundos sin un cambio: corte, zoom, texto, b-roll o gráfico.",
-            "Las pausas dentro de una frase no pasan de 0,3 s.",
-            "Zoom-in (de 100 % a 106–112 %) en las frases importantes, no en todas.",
-            "Cada b-roll o gráfico aparece justo en la palabra que lo nombra.",
-            "Cada efecto de sonido acompaña una acción en pantalla.",
-            "La música va por debajo de la voz: la voz siempre se entiende.",
-        ]),
-        ("Regla 3 · Subtítulos que guían la mirada a la palabra clave", [
-            "Frases cortas: de 2 a 4 palabras por bloque, al ritmo de la voz.",
-            "Una sola fuente y un tamaño base; las palabras clave más grandes y en color (máximo 5 o 6 en todo el video).",
-            "Los subtítulos no tapan la cara, la boca ni el producto, y quedan dentro de la zona segura.",
-            "Sin punto final y sin errores de los subtítulos automáticos.",
-            "Ningún texto repite el subtítulo en otra parte de la pantalla.",
-        ]),
-        ("Antes de exportar", [
-            "El video termina justo después de la última palabra.",
-            "Hay un solo llamado a la acción, claro.",
-            "Exportas en 1080×1920 y 30 fps.",
-        ]),
-    ]
+    reglas = ESTILO_REGLAS
     html = ""
     n = 0
     for titulo, items in reglas:
@@ -394,6 +397,27 @@ def estilo_cuerpo():
         html += f'<section class="block"><h2>{escape(titulo)}</h2><ul class="check" data-key="estilo">{lis}</ul></section>'
     html += '<section class="block">' + nota("Estas tres reglas no son un efecto mágico: son las mismas en cada video que edito. Lo que cambia es cómo las aplicas a cada material. Tus marcas se guardan en este navegador.") + '</section>'
     return html
+
+
+def texto_copia(slug):
+    """Lo que copia el botón «Copiar» de cada tarjeta de la Bóveda."""
+    if slug == "gancho": return GANCHO_PROMPT
+    if slug == "subs": return SUBS_PROMPT
+    if slug == "memoria": return MEMORIA_TEMPLATE
+    if slug in ("ritmo", "texto"):
+        prompt = RITMO_PROMPT if slug == "ritmo" else TEXTO_PROMPT
+        script = (OUT / slug / ("voz_ritmo.py" if slug == "ritmo" else "transcribir.py")).read_text(encoding="utf-8")
+        return prompt.replace("[PEGA AQUÍ EL SCRIPT]", script.strip())
+    if slug == "estilo":
+        return "Checklist de retención · repásalo antes de exportar\n\n" + "\n\n".join(
+            t + "\n" + "\n".join("[ ] " + x for x in items) for t, items in ESTILO_REGLAS)
+    if slug == "codex":
+        return ("Conecta Codex a Claude Code. Escribe estos comandos en Claude Code, uno por uno:\n\n"
+                "/plugin marketplace add openai/codex-plugin-cc\n/plugin install codex@openai-codex\n/reload-plugins\n/codex:setup\n\n"
+                "Cuando te lo pida, inicia sesión con tu cuenta de ChatGPT. Después añade esto a tu CLAUDE.md:\n\n" + CODEX_DELEGAR)
+    if slug == "skills":
+        return "\n\n---\n\n".join([SKILL_VIDEOUSE, SKILL_HYPERFRAMES, SKILL_EARSHOT])
+    raise SystemExit("sin texto para copiar: " + slug)
 
 
 # ---------------------------------------------------------------- páginas
@@ -528,12 +552,13 @@ def pagina_guia():
 def pagina_hub():
     cards = ""
     for i, r in enumerate(RECURSOS):
-        cards += f"""<a class="card" href="{r['slug']}/">
+        cards += f"""<div class="card">
   <div class="card__top"><span class="label">{r['tipo']}</span><span class="tc">{r['palabra']}</span></div>
   <h3>{escape(r['titulo'])}</h3>
   <p>{escape(r['linea'])}</p>
-  <div class="card__go"><span>Abrir</span><span>→</span></div>
-</a>"""
+  <div class="card__go"><a class="card__link" href="{r['slug']}/">Abrir <span>→</span></a><button class="copy card__copy" type="button" data-copy="cp-{r['slug']}" aria-label="Copiar {escape(r['tipo'].lower())} de {r['palabra']}">Copiar</button></div>
+  <pre class="card__src" id="cp-{r['slug']}" hidden>{escape(texto_copia(r['slug']).strip())}</pre>
+</div>"""
     for p in PROXIMOS:
         cards += f"""<div class="card card--soon">
   <div class="card__top"><span class="label">Llega el {p['fecha']}</span><span class="tc">{p['palabra']}</span></div>

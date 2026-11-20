@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="assets/comunidad.css?v=2">
+<link rel="stylesheet" href="assets/comunidad.css?v=3">
 </head>
 <body>
 <header class="top"><div class="wrap top__in">
@@ -68,47 +68,313 @@
       <h2>Prompts, scripts y plantillas</h2>
       <p>Cada recurso tiene su palabra clave: si la comentaste en un reel, aquí está. Todos se usan igual: copias, pegas en Claude o ChatGPT y listo.</p>
     </div>
-    <div class="grid"><a class="card" href="gancho/">
+    <div class="grid"><div class="card">
   <div class="card__top"><span class="label">Prompt</span><span class="tc">GANCHO</span></div>
   <h3>10 ganchos para tu reel</h3>
   <p>Pega tu guion y Claude (o ChatGPT) te devuelve 10 ganchos distintos, con la imagen del primer segundo y el texto en pantalla.</p>
-  <div class="card__go"><span>Abrir</span><span>→</span></div>
-</a><a class="card" href="subs/">
+  <div class="card__go"><a class="card__link" href="gancho/">Abrir <span>→</span></a><button class="copy card__copy" type="button" data-copy="cp-gancho" aria-label="Copiar prompt de GANCHO">Copiar</button></div>
+  <pre class="card__src" id="cp-gancho" hidden>Eres un editor de reels experto en retención. Voy a pasarte el guion de un reel de [DURACIÓN, por ejemplo 35] segundos para [PLATAFORMA: Instagram / TikTok]. Mi público es [QUIÉN TE VE, por ejemplo: editores que empiezan].
+
+Escríbeme 10 ganchos para el primer segundo del reel. Reglas:
+- Máximo 12 palabras cada uno, en español natural, como lo diría una persona a cámara.
+- Usa 10 tipos distintos, uno por gancho: cifra concreta, pregunta, resultado primero, error común, contradicción con lo que todos creen, antes y después, &quot;yo ya no…&quot;, reto o apuesta, secreto de oficio y advertencia.
+- Solo usa cifras y datos que estén en mi guion. No inventes resultados.
+- Nada de clickbait que el video no cumpla: el gancho tiene que prometer lo que el reel entrega.
+
+Para cada gancho dame:
+1. La frase.
+2. Qué se ve en el primer segundo (la imagen o el plano exacto).
+3. El texto en pantalla (máximo 5 palabras).
+
+Al final, marca los 3 que más retendrían y explica en una línea por qué cada uno.
+
+Guion:
+[PEGA AQUÍ TU GUION]</pre>
+</div><div class="card">
   <div class="card__top"><span class="label">Prompt</span><span class="tc">SUBS</span></div>
   <h3>Subtítulos karaoke con Claude</h3>
   <p>El prompt exacto para que Claude transcriba tu video y le ponga subtítulos que se encienden palabra por palabra.</p>
-  <div class="card__go"><span>Abrir</span><span>→</span></div>
-</a><a class="card" href="estilo/">
+  <div class="card__go"><a class="card__link" href="subs/">Abrir <span>→</span></a><button class="copy card__copy" type="button" data-copy="cp-subs" aria-label="Copiar prompt de SUBS">Copiar</button></div>
+  <pre class="card__src" id="cp-subs" hidden>Eres mi editor de subtítulos. En la carpeta Brutos está mi video [NOMBRE DEL VIDEO].
+
+1. Transcríbelo en mi computadora con Whisper (faster-whisper), con el tiempo de cada palabra. Idioma: [español].
+2. Crea subtítulos estilo karaoke: bloques de 2 a 4 palabras; la frase aparece en gris claro y cada palabra se enciende en [COLOR, por ejemplo #19D3C5] justo cuando la digo.
+3. Fuente [FUENTE], grande y fácil de leer, sin fondo y con una sombra suave. Colócalos a la altura del pecho, nunca encima de la cara, y dentro de la zona segura de un video vertical de 1080×1920.
+4. Máximo una palabra clave por frase puede ir un poco más grande. Sin puntos finales.
+5. Antes de renderizar, revisa la transcripción y enséñame las palabras dudosas para corregirlas.
+6. Renderiza con FFmpeg (subtítulos ASS quemados en el video) y guárdalo en Exportados como [NOMBRE]-subs-v1.mp4. Guarda también el archivo .ass por si quiero cambiar algo.
+
+Si te falta una herramienta (FFmpeg, Python o faster-whisper), instálala pidiéndome permiso antes.</pre>
+</div><div class="card">
   <div class="card__top"><span class="label">Checklist</span><span class="tc">ESTILO</span></div>
   <h3>Checklist de retención</h3>
   <p>Las 3 reglas que aplico en cada reel, en una lista para repasar antes de exportar. Se marca aquí mismo.</p>
-  <div class="card__go"><span>Abrir</span><span>→</span></div>
-</a><a class="card" href="ritmo/">
+  <div class="card__go"><a class="card__link" href="estilo/">Abrir <span>→</span></a><button class="copy card__copy" type="button" data-copy="cp-estilo" aria-label="Copiar checklist de ESTILO">Copiar</button></div>
+  <pre class="card__src" id="cp-estilo" hidden>Checklist de retención · repásalo antes de exportar
+
+Regla 1 · El gancho en el primer segundo, con la mejor imagen
+[ ] El primer cuadro ya es la imagen más fuerte del video. Nada de logos, intros ni «hola, ¿cómo están?».
+[ ] La primera frase se dice en el segundo 0, sin respirar antes.
+[ ] Hay un texto en pantalla de 5 palabras como máximo que se entiende sin sonido.
+[ ] El gancho promete algo que el video cumple.
+[ ] Prueba del pulgar: con el sonido apagado, ¿te quedarías después del primer segundo?
+
+Regla 2 · Algo nuevo cada segundo, nada quieto
+[ ] Ningún plano dura más de 2–3 segundos sin un cambio: corte, zoom, texto, b-roll o gráfico.
+[ ] Las pausas dentro de una frase no pasan de 0,3 s.
+[ ] Zoom-in (de 100 % a 106–112 %) en las frases importantes, no en todas.
+[ ] Cada b-roll o gráfico aparece justo en la palabra que lo nombra.
+[ ] Cada efecto de sonido acompaña una acción en pantalla.
+[ ] La música va por debajo de la voz: la voz siempre se entiende.
+
+Regla 3 · Subtítulos que guían la mirada a la palabra clave
+[ ] Frases cortas: de 2 a 4 palabras por bloque, al ritmo de la voz.
+[ ] Una sola fuente y un tamaño base; las palabras clave más grandes y en color (máximo 5 o 6 en todo el video).
+[ ] Los subtítulos no tapan la cara, la boca ni el producto, y quedan dentro de la zona segura.
+[ ] Sin punto final y sin errores de los subtítulos automáticos.
+[ ] Ningún texto repite el subtítulo en otra parte de la pantalla.
+
+Antes de exportar
+[ ] El video termina justo después de la última palabra.
+[ ] Hay un solo llamado a la acción, claro.
+[ ] Exportas en 1080×1920 y 30 fps.</pre>
+</div><div class="card">
   <div class="card__top"><span class="label">Script</span><span class="tc">RITMO</span></div>
   <h3>Quita los silencios de tu voz</h3>
   <p>Un script que deja cada pausa en una décima de segundo y acelera la voz un 10 % sin que suene rara.</p>
-  <div class="card__go"><span>Abrir</span><span>→</span></div>
-</a><a class="card" href="texto/">
+  <div class="card__go"><a class="card__link" href="ritmo/">Abrir <span>→</span></a><button class="copy card__copy" type="button" data-copy="cp-ritmo" aria-label="Copiar script de RITMO">Copiar</button></div>
+  <pre class="card__src" id="cp-ritmo" hidden>Quiero quitar los silencios de mi voz en off y acelerarla un poco.
+
+1. Revisa si tengo Python y FFmpeg instalados. Si falta alguno, instálalo pidiéndome permiso.
+2. Crea en esta carpeta el archivo voz_ritmo.py con el código que te pego abajo, sin cambiarlo.
+3. Ejecútalo con mi audio: python voz_ritmo.py Brutos/[MI-AUDIO].mp3 Exportados/[MI-AUDIO]-rapida.wav
+4. Dime cuánto duraba antes y cuánto dura ahora.
+
+Código:
+&quot;&quot;&quot;Quita silencios &gt;0,22 s (deja 0,1 s) y acelera a 1,1x. Uso: python voz_ritmo.py assets/voz.mp3 assets/voz-rapida.wav&quot;&quot;&quot;
+import subprocess,re,sys
+src,dst=sys.argv[1],sys.argv[2]
+log=subprocess.run([&#x27;ffmpeg&#x27;,&#x27;-hide_banner&#x27;,&#x27;-i&#x27;,src,&#x27;-af&#x27;,&#x27;silencedetect=noise=-38dB:d=0.22&#x27;,&#x27;-f&#x27;,&#x27;null&#x27;,&#x27;-&#x27;],capture_output=True,text=True).stderr
+st=[float(x) for x in re.findall(r&#x27;silence_start: ([\d.]+)&#x27;,log)]; en=[float(x) for x in re.findall(r&#x27;silence_end: ([\d.]+)&#x27;,log)]
+dur=float(subprocess.check_output([&#x27;ffprobe&#x27;,&#x27;-v&#x27;,&#x27;error&#x27;,&#x27;-show_entries&#x27;,&#x27;format=duration&#x27;,&#x27;-of&#x27;,&#x27;csv=p=0&#x27;,src]))
+K=.05;keep=[];a=0
+for s,e in zip(st,en):
+    if e&gt;=dur-.05: break
+    keep.append((a,s+K)); a=e-K
+keep.append((a,dur))
+sel=&#x27;+&#x27;.join(f&#x27;between(t,{x:.3f},{y:.3f})&#x27; for x,y in keep)
+subprocess.run([&#x27;ffmpeg&#x27;,&#x27;-y&#x27;,&#x27;-hide_banner&#x27;,&#x27;-loglevel&#x27;,&#x27;error&#x27;,&#x27;-i&#x27;,src,&#x27;-af&#x27;,f&quot;aselect=&#x27;{sel}&#x27;,asetpts=N/SR/TB,atempo=1.1&quot;,dst],check=True)</pre>
+</div><div class="card">
   <div class="card__top"><span class="label">Script</span><span class="tc">TEXTO</span></div>
   <h3>Transcribe gratis en tu computadora</h3>
   <p>Whisper en tu computadora: cada palabra con su tiempo exacto, más un .srt listo para CapCut. Sin pagar suscripciones.</p>
-  <div class="card__go"><span>Abrir</span><span>→</span></div>
-</a><a class="card" href="codex/">
+  <div class="card__go"><a class="card__link" href="texto/">Abrir <span>→</span></a><button class="copy card__copy" type="button" data-copy="cp-texto" aria-label="Copiar script de TEXTO">Copiar</button></div>
+  <pre class="card__src" id="cp-texto" hidden>Quiero transcribir mis videos gratis en mi computadora.
+
+1. Revisa si tengo Python 3.10 o superior y FFmpeg. Si falta alguno, instálalo pidiéndome permiso.
+2. Instala el paquete faster-whisper con pip. Si tengo tarjeta NVIDIA, configúralo para usarla; si no, que funcione en el procesador.
+3. Crea en esta carpeta el archivo transcribir.py con el código que te pego abajo, sin cambiarlo.
+4. Pruébalo con mi video: python transcribir.py Brutos/[MI-VIDEO].mp4 --idioma es
+5. Enséñame las primeras líneas del .srt para comprobar que salió bien.
+
+Código:
+&quot;&quot;&quot;Transcribe un video o audio en tu computadora, gratis, con Whisper (faster-whisper).
+
+Recurso gratis de @alfredits.ia · alfredits.github.io/comunidad/texto/
+
+Crea dos archivos al lado del video:
+  - &lt;nombre&gt;.srt          subtítulos por frases (sirven en CapCut, Premiere o YouTube)
+  - &lt;nombre&gt;.palabras.json cada palabra con su tiempo exacto (para karaoke y cortes)
+
+Uso:
+  python transcribir.py mi-video.mp4
+  python transcribir.py mi-video.mp4 --idioma es --modelo large-v3-turbo
+
+Necesita FFmpeg y el paquete faster-whisper (pip install faster-whisper).
+Si tienes tarjeta NVIDIA la usa; si no, funciona en el procesador (más lento).
+&quot;&quot;&quot;
+
+import argparse
+import json
+import os
+import subprocess
+import sys
+import tempfile
+import wave
+from pathlib import Path
+
+
+def activar_cuda_windows():
+    &quot;&quot;&quot;En Windows, las DLL de NVIDIA instaladas con pip no se encuentran solas.&quot;&quot;&quot;
+    if os.name != &quot;nt&quot;:
+        return
+    import site
+    for sp in site.getsitepackages():
+        nvidia = Path(sp) / &quot;nvidia&quot;
+        if nvidia.is_dir():
+            for carpeta in nvidia.glob(&quot;*/bin&quot;):
+                os.add_dll_directory(str(carpeta))
+                os.environ[&quot;PATH&quot;] = str(carpeta) + os.pathsep + os.environ[&quot;PATH&quot;]
+
+
+def extraer_audio(video, destino):
+    subprocess.run(
+        [&quot;ffmpeg&quot;, &quot;-y&quot;, &quot;-i&quot;, str(video), &quot;-vn&quot;, &quot;-ac&quot;, &quot;1&quot;, &quot;-ar&quot;, &quot;16000&quot;, &quot;-c:a&quot;, &quot;pcm_s16le&quot;, str(destino)],
+        check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+    )
+
+
+def leer_wav(ruta):
+    import numpy as np
+    with wave.open(str(ruta), &quot;rb&quot;) as w:
+        pcm = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16)
+    return pcm.astype(np.float32) / 32768.0
+
+
+def cargar_modelo(nombre):
+    from faster_whisper import WhisperModel
+    try:
+        return WhisperModel(nombre, device=&quot;cuda&quot;, compute_type=&quot;int8_float16&quot;), &quot;la tarjeta de video&quot;
+    except Exception:
+        return WhisperModel(nombre, device=&quot;cpu&quot;, compute_type=&quot;int8&quot;), &quot;el procesador&quot;
+
+
+def tiempo_srt(s):
+    ms = int(round(s * 1000))
+    h, ms = divmod(ms, 3600000)
+    m, ms = divmod(ms, 60000)
+    seg, ms = divmod(ms, 1000)
+    return f&quot;{h:02d}:{m:02d}:{seg:02d},{ms:03d}&quot;
+
+
+def main():
+    ap = argparse.ArgumentParser(description=&quot;Transcribe gratis en tu computadora con Whisper&quot;)
+    ap.add_argument(&quot;archivo&quot;, type=Path, help=&quot;video o audio&quot;)
+    ap.add_argument(&quot;--idioma&quot;, default=None, help=&quot;código de idioma, por ejemplo es o en (si no, lo detecta)&quot;)
+    ap.add_argument(&quot;--modelo&quot;, default=&quot;large-v3-turbo&quot;, help=&quot;modelo de Whisper (small es más rápido)&quot;)
+    args = ap.parse_args()
+
+    archivo = args.archivo.resolve()
+    if not archivo.exists():
+        sys.exit(f&quot;No encuentro el archivo: {archivo}&quot;)
+
+    activar_cuda_windows()
+    with tempfile.TemporaryDirectory() as tmp:
+        audio = Path(tmp) / &quot;audio.wav&quot;
+        print(&quot;Sacando el audio…&quot;, flush=True)
+        extraer_audio(archivo, audio)
+        modelo, dispositivo = cargar_modelo(args.modelo)
+        print(f&quot;Transcribiendo con {dispositivo}…&quot;, flush=True)
+        segmentos, info = modelo.transcribe(leer_wav(audio), language=args.idioma,
+                                            word_timestamps=True, vad_filter=True, beam_size=5)
+        segmentos = list(segmentos)
+
+    palabras = [
+        {&quot;texto&quot;: w.word.strip(), &quot;inicio&quot;: round(w.start, 3), &quot;fin&quot;: round(w.end, 3)}
+        for seg in segmentos for w in (seg.words or []) if w.word.strip()
+    ]
+    srt = []
+    for i, seg in enumerate(segmentos, 1):
+        srt.append(f&quot;{i}\n{tiempo_srt(seg.start)} --&gt; {tiempo_srt(seg.end)}\n{seg.text.strip()}\n&quot;)
+
+    base = archivo.with_suffix(&quot;&quot;)
+    Path(f&quot;{base}.srt&quot;).write_text(&quot;\n&quot;.join(srt), encoding=&quot;utf-8&quot;)
+    Path(f&quot;{base}.palabras.json&quot;).write_text(
+        json.dumps({&quot;idioma&quot;: info.language, &quot;palabras&quot;: palabras}, ensure_ascii=False, indent=2), encoding=&quot;utf-8&quot;)
+    print(f&quot;Listo: {base.name}.srt y {base.name}.palabras.json ({len(palabras)} palabras, idioma {info.language})&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()</pre>
+</div><div class="card">
   <div class="card__top"><span class="label">Guía</span><span class="tc">CODEX</span></div>
   <h3>Conecta Codex a Claude y ahorra límite</h3>
   <p>Instala el plugin oficial de Codex en Claude Code: Claude dirige y revisa, Codex escribe el código pesado con su propio límite.</p>
-  <div class="card__go"><span>Abrir</span><span>→</span></div>
-</a><a class="card" href="memoria/">
+  <div class="card__go"><a class="card__link" href="codex/">Abrir <span>→</span></a><button class="copy card__copy" type="button" data-copy="cp-codex" aria-label="Copiar guía de CODEX">Copiar</button></div>
+  <pre class="card__src" id="cp-codex" hidden>Conecta Codex a Claude Code. Escribe estos comandos en Claude Code, uno por uno:
+
+/plugin marketplace add openai/codex-plugin-cc
+/plugin install codex@openai-codex
+/reload-plugins
+/codex:setup
+
+Cuando te lo pida, inicia sesión con tu cuenta de ChatGPT. Después añade esto a tu CLAUDE.md:
+
+## Trabajo con Codex
+- Cuando una tarea sea escribir mucho código (armar el proyecto de un video, animaciones, scripts largos o arreglos grandes), pásasela a Codex con /codex:rescue y un brief claro: qué hay que hacer, en qué archivos y cómo se ve terminado.
+- Tú (Claude) decides, escribes el brief y revisas lo que devuelve Codex antes de enseñármelo. Si algo está mal, se lo devuelves a Codex con las correcciones en una sola tanda.
+- Las tareas cortas (una edición pequeña, una pregunta) las haces tú directamente.</pre>
+</div><div class="card">
   <div class="card__top"><span class="label">Plantilla</span><span class="tc">MEMORIA</span></div>
   <h3>Plantilla de CLAUDE.md para editores</h3>
   <p>El archivo que Claude lee al empezar cada sesión. Escribe una vez cómo editas y deja de repetirlo.</p>
-  <div class="card__go"><span>Abrir</span><span>→</span></div>
-</a><a class="card" href="skills/">
+  <div class="card__go"><a class="card__link" href="memoria/">Abrir <span>→</span></a><button class="copy card__copy" type="button" data-copy="cp-memoria" aria-label="Copiar plantilla de MEMORIA">Copiar</button></div>
+  <pre class="card__src" id="cp-memoria" hidden># CLAUDE.md · mi forma de editar
+Lee este archivo antes de cualquier tarea. Si te corrijo algo que sirva para siempre, añádelo aquí.
+
+## Quién soy
+- Edito [reels / TikToks / shorts] para [tipo de clientes o tu propio contenido], en [idioma].
+- Trabajo en [CapCut / Premiere / DaVinci]. Tú me ayudas con lo pesado: cortar, transcribir, subtítulos y animaciones.
+
+## Carpetas
+- Brutos: lo que grabo. Nunca borres nada de aquí.
+- Referencias: videos que me gustan.
+- Exportados: lo terminado. Cada cambio es una versión nueva (v1, v2, v3); nunca sobrescribas la anterior.
+
+## Formato
+- Vertical 1080×1920, 30 fps. Audio normalizado a −14 LUFS.
+- Duración habitual: [30–60] s.
+
+## Ritmo
+- Gancho en el primer segundo, con la mejor imagen. Nada de intros.
+- Algo nuevo cada 1–2 segundos: corte, zoom, texto o b-roll.
+- Silencios de más de 0,3 s fuera.
+
+## Subtítulos
+- Bloques cortos (2 a 4 palabras) con la palabra clave destacada en [color].
+- Fuente [fuente], sin fondo, a la altura del pecho. Nunca encima de la cara.
+- Una palabra clave por frase como máximo.
+
+## Colores y marca
+- Colores: [#2F6BFF, #19D3C5…]. Fuentes: [títulos / texto].
+
+## Nunca hacer
+- [Ejemplo: glow en los subtítulos.]
+- [Ejemplo: música más alta que la voz.]
+- [Aquí van los errores que ya te corregí.]
+
+## Cómo trabajamos
+- Antes de un cambio grande, dime el plan en 3 líneas.
+- Al terminar, dime qué hiciste y qué no pudiste comprobar.</pre>
+</div><div class="card">
   <div class="card__top"><span class="label">Guía</span><span class="tc">SKILLS</span></div>
   <h3>Las 3 skills que instalo para editar</h3>
   <p>video-use corta, HyperFrames anima y earshot escucha. Las tres son gratis y de código abierto; Claude las instala por ti.</p>
-  <div class="card__go"><span>Abrir</span><span>→</span></div>
-</a></div>
+  <div class="card__go"><a class="card__link" href="skills/">Abrir <span>→</span></a><button class="copy card__copy" type="button" data-copy="cp-skills" aria-label="Copiar guía de SKILLS">Copiar</button></div>
+  <pre class="card__src" id="cp-skills" hidden>Instálame la skill video-use (https://github.com/browser-use/video-use) para Claude Code.
+
+1. Lee su install.md y sigue los pasos: clona el repositorio, instala sus dependencias y FFmpeg si no lo tengo, y regístrala en mi carpeta global de skills (~/.claude/skills/video-use).
+2. Para transcribir, video-use usa ElevenLabs y necesita una clave de API. NO la configures todavía: pregúntame si quiero usar ElevenLabs o el transcriptor gratis de Whisper en mi computadora (https://alfredits.github.io/comunidad/texto/).
+3. Si elijo Whisper, instálalo con ese script y, cuando use video-use, transcribe con él en lugar de ElevenLabs, guardando el resultado en el mismo formato que espera video-use.
+4. Cuando termines, dime que está lista y no transcribas nada hasta que yo te pase un video.
+
+---
+
+Instálame la skill de HyperFrames (de HeyGen) para Claude Code, en mi carpeta global de skills.
+
+1. Comprueba que tengo Node.js; si no, instálalo.
+2. Ejecuta: npx skills add heygen-com/hyperframes
+3. Cuando termine, haz una prueba corta: un video vertical de 5 segundos con el texto &quot;Hola&quot; animado, y dime dónde quedó el MP4.
+
+---
+
+Instálame earshot (https://github.com/Leonxlnx/earshot) y su skill para Claude Code.
+
+1. Comprueba que tengo Python 3.10 o superior, uv y FFmpeg; instala lo que falte.
+2. Instala earshot siguiendo su README y descarga sus modelos (pesan alrededor de 1 GB).
+3. Copia sus skills de la carpeta skills/ a mi carpeta global de skills (~/.claude/skills).
+4. Pruébalo con un audio o video mío: dime qué suena, cuándo y qué tan fuerte.</pre>
+</div></div>
   </section>
 
   <section class="sec" id="banco">

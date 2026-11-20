@@ -122,6 +122,7 @@ h1, h2, h3, p, ul, ol { margin: 0; }
 /* ---------- Tarjetas de recursos */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 16px; }
 .card {
+  position: relative;
   display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px;
   padding: 22px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line);
   text-decoration: none; min-width: 0;
@@ -133,6 +134,13 @@ h1, h2, h3, p, ul, ol { margin: 0; }
 .card p { color: var(--muted); font-size: 15px; }
 .card__go { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 600; }
 .card__go span:last-child { color: var(--teal); }
+.card__link { display: inline-flex; gap: 10px; align-items: center; color: var(--ink); text-decoration: none; }
+.card__link span { color: var(--teal); }
+.card__link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.card__link:focus-visible { outline: none; }
+.card:has(.card__link:focus-visible) { outline: 2px solid var(--teal); outline-offset: 3px; }
+.card__copy { position: relative; z-index: 1; }
+.card__copy:hover { border-color: var(--teal); }
 .card--soon { opacity: .72; }
 .card--soon:hover { transform: none; border-color: var(--line); }
 
