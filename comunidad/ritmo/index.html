@@ -65,7 +65,7 @@ keep.append((a,dur))
 sel=&#x27;+&#x27;.join(f&#x27;between(t,{x:.3f},{y:.3f})&#x27; for x,y in keep)
 subprocess.run([&#x27;ffmpeg&#x27;,&#x27;-y&#x27;,&#x27;-hide_banner&#x27;,&#x27;-loglevel&#x27;,&#x27;error&#x27;,&#x27;-i&#x27;,src,&#x27;-af&#x27;,f&quot;aselect=&#x27;{sel}&#x27;,asetpts=N/SR/TB,atempo=1.1&quot;,dst],check=True)</pre></div><div class="dl"><a class="btn btn--ghost" href="voz_ritmo.py" download>Descargar voz_ritmo.py</a></div></section><section class="block"><h2>Qué hace exactamente</h2><ul><li>Busca las pausas de más de <b>0,22 s</b> y las deja en <b>0,1 s</b>.</li><li>Acelera la voz a <b>1,1×</b> sin cambiar el tono.</li><li>Te devuelve un .wav limpio para editar.</li></ul><div class="note"><span class="label">Nota de Alfredo</span><p>Funciona solo con audio: úsalo con tu voz en off. Si lo usas con un video donde hablas a cámara, el audio se recorta pero la imagen no, y se desincronizan.</p></div></section>
   <section class="cta">
-  <span class="tc">00:00:59:29 · fin</span>
+  <span class="tc">siguiente paso</span>
   <h2>¿Te sirvió? Pásaselo a ese amigo que sigue cortando silencios a mano.</h2>
   <p>Cada semana regalo una herramienta nueva para editar con IA. Sígueme para no perderte la próxima.</p>
   <div class="btns">

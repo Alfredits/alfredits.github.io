@@ -89,7 +89,7 @@ def cierre(slug, frase_amigo):
     otros = [r for r in RECURSOS if r["slug"] != slug][:3]
     links = "".join(f'<a href="../{r["slug"]}/"><span>{escape(r["titulo"])}</span><span>{r["palabra"]} →</span></a>' for r in otros)
     return f"""<section class="cta">
-  <span class="tc">00:00:59:29 · fin</span>
+  <span class="tc">siguiente paso</span>
   <h2>¿Te sirvió? Pásaselo a {escape(frase_amigo)}.</h2>
   <p>Cada semana regalo una herramienta nueva para editar con IA. Sígueme para no perderte la próxima.</p>
   <div class="btns">
@@ -580,7 +580,7 @@ def pagina_hub():
   </section>
 
   <section class="sec" id="guia">
-    <div class="sec__head"><span class="tc">00:00:01 · empieza aquí</span></div>
+    <div class="sec__head"><span class="tc">01 · empieza aquí</span></div>
     <a class="feature" href="guia/">
       <div class="feature__txt">
         <span class="kw">Palabra clave <b>GUIA</b></span>
@@ -599,7 +599,7 @@ def pagina_hub():
 
   <section class="sec" id="gratis">
     <div class="sec__head">
-      <span class="tc">00:00:08 · material gratis</span>
+      <span class="tc">02 · material gratis</span>
       <h2>Prompts, scripts y plantillas</h2>
       <p>Cada recurso tiene su palabra clave: si la comentaste en un reel, aquí está. Todos se usan igual: copias, pegas en Claude o ChatGPT y listo.</p>
     </div>
@@ -608,7 +608,7 @@ def pagina_hub():
 
   <section class="sec" id="banco">
     <div class="sec__head">
-      <span class="tc">00:00:21 · banco de recursos</span>
+      <span class="tc">03 · banco de recursos</span>
       <h2>Animaciones editables, por estilo</h2>
       <p>Un banco de animaciones que uso en mis reels: con su video de muestra, el proyecto editable y el prompt para adaptarlas a tu marca. Lo estoy armando: sígueme para saber cuándo abre.</p>
     </div>
@@ -618,13 +618,13 @@ def pagina_hub():
   <section class="sec" id="trabajos">
     <div class="duo">
       <div class="panel">
-        <span class="tc">00:00:34 · mis trabajos</span>
+        <span class="tc">04 · mis trabajos</span>
         <h3>Lo que edito</h3>
         <p>Reels para clientes de Estados Unidos y Latinoamérica, en español e inglés. Más de 1.000 videos en 2 años.</p>
         <div class="btns"><a class="btn btn--ghost" href="../">Ver mi web y portafolio</a></div>
       </div>
       <div class="panel" id="ebook">
-        <span class="tc">00:00:47 · próximamente</span>
+        <span class="tc">05 · próximamente</span>
         <h3>Ebook: crea tu estilo de edición con IA</h3>
         <p>Paso a paso para montar tu propio flujo con Claude + Codex desde cero: tus reglas, tus skills y tus prompts, especializado en edición de video.</p>
         <div class="price">$15<small>precio de lanzamiento</small></div>
